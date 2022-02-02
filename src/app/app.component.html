@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="logedUser">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <!-- <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/Home']">Home <span class="sr-only">(current)</span></a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/Home']" >Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/Empleados']" *ngIf="logedUser.rol === 1">Empleados</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" *ngIf="logedUser.rol === 2">Empleados</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/Juego']" *ngIf="logedUser.rol === 2">Juego</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"*ngIf="logedUser.rol === 1">Juego</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="main-div" *ngIf="!isLoged">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-4 text-center">
+        <div class="card">
+          <div class="card-header">{{title}}</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Usuario</mat-label>
+                  <input type="text" matInput placeholder="Usuario" #user>
+                </mat-form-field>
+              </div>
+              <div class="col-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" #password>
+                  <button mat-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+                    Mostrar
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-12">
+              <button mat-button class="dark" (click)="login(user.value, password.value)">Iniciar sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<router-outlet></router-outlet>
+
+

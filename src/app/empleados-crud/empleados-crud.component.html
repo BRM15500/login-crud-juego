@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="card" *ngIf="currentUser.rol === 1">
+    <div class="card-header">
+      <h3>Datos del empleado</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="empleadoForm">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="brm">BRM (buscar)</label>
+            <input type="number" maxlength="5" class="form-control" id="brm" formControlName="brm" placeholder="Ingresar BRM" #brm>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="puesto">Puesto</label>
+            <select class="form-control" id="puesto" formControlName="puesto">
+              <option selected disabled value="null">Seleccione un puesto</option>
+              <option value="Desarrollador FrontEnd JR">Desarrollador FrontEnd JR</option>
+              <option value="Desarrollador FrontEnd SR">Desarrollador FrontEnd SR</option>
+              <option value="Desarrollador BackEnd JR">Desarrollador BackEnd JR</option>
+              <option value="Desarrollador BackEnd SR">Desarrollador BackEnd SR</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingresar Nombre" #nombre>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="">Foto</label>
+              <input type="file" class="form-control-file" accept="image/*" (change)="handleFileInput($event.target.files)">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <button class="btn btn-success mt-4 col-12" (click)="guardarEmp()" [disabled]="empleadoForm.status !== 'VALID'">Guardar empleado</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- <div class="card" *ngIf="edit">
+    <div class="card-header">
+      <h3>Datos del empleado</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="empleadoForm">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="brm">BRM (buscar)</label>
+            <input type="number" maxlength="5" class="form-control" id="brm" formControlName="brm" placeholder="Ingresar BRM" #brm>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="puesto">Puesto</label>
+            <select class="form-control" id="puesto" formControlName="puesto">
+              <option selected disabled value="null">Seleccione un puesto</option>
+              <option value="Desarrollador FrontEnd JR">Desarrollador FrontEnd JR</option>
+              <option value="Desarrollador FrontEnd SR">Desarrollador FrontEnd SR</option>
+              <option value="Desarrollador BackEnd JR">Desarrollador BackEnd JR</option>
+              <option value="Desarrollador BackEnd SR">Desarrollador BackEnd SR</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Ingresar Nombre" #nombre>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="">Foto</label>
+              <input type="file" class="form-control-file" accept="image/*" (change)="handleFileInput($event.target.files)">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <button class="btn btn-success mt-4 col-12" (click)="guardarEmp()" [disabled]="empleadoForm.status !== 'VALID'">Editar empleado</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Empleados</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-center">
+            <th>BRM</th>
+            <th>Nombre</th>
+            <th>Foto</th>
+            <th>Puesto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let emp of empleados">
+            <td>{{emp.brm}}</td>
+            <td>{{emp.nombre}}</td>
+            <td><img style='display:block; width:100px;height:100px;' id='base64image'
+              src='{{emp.img}},{{emp.base64}}' /></td>
+            <td>{{emp.puesto}}</td>
+            <td>
+              <button class="btn btn-warning" (click)="editEmp(emp)">Editar</button>
+              <button class="btn btn-danger" (click)="elimEmp(emp)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
